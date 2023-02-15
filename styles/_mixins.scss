@@ -1,0 +1,37 @@
+/*
+  Font size in REM with PX
+*/
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+/*
+  Font face
+*/
+$font-dir: '/fonts/';
+
+@mixin font-face($family, $fontname, $style: normal, $weight: normal) {
+  @font-face {
+    font-family: $family;
+    src: url('#{$font-dir}/#{$family}/#{$fontname}.eot'); // IE9 compat
+    src: url('#{$font-dir}/#{$family}/#{$fontname}.eot?#iefix')
+        format('embedded-opentype'),
+      // IE8 and below
+      url('#{$font-dir}/#{$family}/#{$fontname}.woff') format('woff'),
+      // standards
+      url('#{$font-dir}/#{$family}/#{$fontname}.ttf') format('truetype'),
+      // Safari, Android, iOS
+      url('#{$font-dir}/#{$family}/#{$fontname}.svg##{$family}') format(
+          'svg'
+        ); // legacy iOS
+
+    font-style: $style;
+    font-weight: $weight;
+  }
+}
